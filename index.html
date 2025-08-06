@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing page</title>-
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+  <!-- img -->
+   <link rel="preload" as="image" href="/img/hero.webp" type="image/webp"/>
+   <link rel="preload" as="image" href="/img/logo-vivienda.png" type="image/png"/>
+   <link rel="preload" as="image" href="/img/logo-vivienda-oscuro.png" type="image/png"/>
+</head>
+<body>
+  <header class="header">
+    <div class="header__container">
+      <div class="logo">
+        <img src="/img/logo.png" alt="logo" loading="lazy">
+      </div>
+      <!-- Seccion de perfil -->
+        <div class="dropdown">
+            <button class="dropdown__toggle">
+                <span class="material-symbols-outlined">account_circle</span>
+                <span class="dropdown__name">Moises Yance</span>
+                <span class="material-symbols-outlined">keyboard_arrow_down</span>
+            </button>
+            <ul class="dropdown__menu">
+                <li><a href="#">Perfil</a></li>
+                <li><a href="#">Configuración</a></li>
+                <li><a href="#">Cerrar sesión</a></li>
+            </ul>
+        </div>
+      <div class="overlay"></div>
+    </div>
+  </header>
+  
+<main>
+<section class="toolbar">
+    <a href="#">
+        <h2 class="toolbar__title">GESTOR DE ASISTENCIAS</h2>
+    </a>
+    <button class="toolbar__button">
+        <span class="material-symbols-outlined">add</span>
+            Registrar ticket
+        </button>
+    </section>
+
+    <!-- Sección de búsqueda y filtros -->
+    <section class="search-filters">
+        <div class="search-box">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" placeholder="Búsqueda por incidencia">
+        </div>
+        <div class="filter-dropdown">
+            <button class="filter-button">
+                Filtrar por: Fecha
+                <span class="material-symbols-outlined">keyboard_arrow_down</span>
+            </button>
+        </div>
+        <div class="view-controls">
+            <button class="view-btn">
+                <span class="material-symbols-outlined">grid_view</span>
+            </button>
+            <button class="view-btn active">
+                <span class="material-symbols-outlined">view_list</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Lista de tickets -->
+    <section class="ticket-list">
+        <article class="ticket-card">
+            <!-- Contenedor para sección 1 y sección 4 -->
+            <div class="section-1-4-container">
+                <!-- SECCIÓN 1: Foto y nombre -->
+                <div class="section-1">
+                    <img src="img/card.png" 
+                         alt="Usuario" class="user-photo">
+                    <div class="user-name">JUAN CARLOS ZUÑIGA</div>
+                    <div class="linea-azul" ></div>
+                </div>
+                
+                <!-- SECCIÓN 4: Opciones -->
+                <div class="section-4">
+                    <button class="options-button">
+                        <span class="material-symbols-outlined">list</span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+
+       <div  class="content-sections" >
+         <!-- SECCIÓN 2: Información básica -->
+        <div class="section-2">
+            <div class="info-item-iconsuperior"> 
+                <span class="material-symbols-outlined status-icon">confirmation_number</span>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">Número de ticket:</div>
+                <div class="info-value">INT2013-5486</div>
+            </div>
+            
+                <div class="info-item">
+                    <div class="info-value">Estado del ticket:</div>
+                </div>
+                <div class="info-item-bottom">
+                        <span class="material-symbols-outlined status-icon">sell</span>
+                        <span>Atendido</span>
+                             
+            </div>
+            
+        </div>
+
+        <!-- SECCIÓN 3: Información detallada -->
+        <div class="section-3">
+            <div class="detailed-info">
+                <div class="detail-value">Tipo de incidencia:</div>
+                <div class="detail-label">Tipo de incidencia</div>
+            </div>
+            <div class="detailed-info">
+                <div class="detail-value">Incidencia:</div>
+                <div class="detail-label">Nombre de la incidencia</div>
+            </div>            
+            
+            <div class="detailed-info">
+                <div class="detail-value">Descripción de incidencia:</div>
+                <div class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div>
+            </div>
+
+            <div class="status-indicator">
+                <div class="status-item">
+                    <div class="status-icon-container">
+                        <span class="material-symbols-outlined status-icon">calendar_month</span>
+                    </div>
+                    <span class="pgrueso">Fecha de registro</span>
+                    <span class="pnormal">18/05/2000</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon-container">
+                        <span class="material-symbols-outlined status-icon">nest_clock_farsight_analog</span>
+                    </div>
+                    <span class="pgrueso" >Tiempo de atención</span>
+                    <span class="pnormal">30min</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon-container">
+                        <span class="material-symbols-outlined status-icon">event_available</span>
+                    </div>
+                    <span class="pgrueso">Fecha de asignación</span>
+                    <span class="pnormal">20/05/2000</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon-container">
+                        <span class="material-symbols-outlined status-icon">attach_file</span>
+                    </div>
+                    <span class="pgrueso">Archivos adjuntos</span>
+                    <span class="pnormal">2</span>
+                </div>                
+            </div>
+        </div>
+    </div>
+       </div>
+        </article>
+
+        
+
+
+    </section>
+<nav class="pagination">
+  <button class="pagination-btn prev" disabled>&lt;</button>
+  <button class="pagination-btn active">1</button>
+  <button class="pagination-btn">2</button>
+  <span class="pagination-ellipsis">...</span>
+  <button class="pagination-btn">9</button>
+  <button class="pagination-btn">10</button>
+  <button class="pagination-btn next">&gt;</button>
+</nav>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
