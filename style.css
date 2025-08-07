@@ -471,6 +471,7 @@ main {
       .info-item-bottom{
         display: flex;
         color: #2e7d32;
+        padding: 0.3rem;
         background-color: rgb(230, 252, 238);
         border-radius: 12px;
         width: 100px;
