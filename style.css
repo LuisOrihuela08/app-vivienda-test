@@ -245,6 +245,7 @@ main {
   border-radius: 6px;
   font-size: 14px;
   background-color: white;
+   outline: none; 
 }
 
 .search-box .material-symbols-outlined {
@@ -347,7 +348,7 @@ main {
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 0.5rem;
-            border: 2px solid #e3f2fd;
+            border: 4px solid #f3f9fd;
         }
 
  .ticket-list-view.as-cards   .user-name {
@@ -496,7 +497,7 @@ main {
  .ticket-list-view.as-cards     .linea-azul {
         width: 50%;
         height: 2px;
-        background-color: #002df5;
+        background-color: #f5ad27;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
       }
@@ -526,7 +527,7 @@ main {
 }
 
 .ticket-list-view.as-cards   .status-icon-container{
-  background-color: rgb(93, 94, 250);
+  background-color: rgb(39, 111, 179);
   width: 30px;
   height: 30px;
   border-radius: 50%;
