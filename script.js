@@ -164,17 +164,40 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Vista cards <-> tabla
+  const $list = document.querySelector('#tickets');       // contenedor fijo
+  const $btnCards = document.querySelector('.grid-view'); // botón tarjetas
+  const $btnTable = document.querySelector('.view-list'); // botón tabla
+
+  if ($list && $btnCards && $btnTable) {
+    const toCards = (e) => {
+      e?.preventDefault();
+      $list.classList.add('as-cards');
+      $list.classList.remove('as-table');
+      $btnCards.classList.add('active');
+      $btnTable.classList.remove('active');
+    };
+
+    const toTable = (e) => {
+      e?.preventDefault();
+      $list.classList.add('as-table');
+      $list.classList.remove('as-cards');
+      $btnTable.classList.add('active');
+      $btnCards.classList.remove('active');
+    };
+
+    // Estado inicial (opcional, según lo que tengas por defecto)
+    if ($list.classList.contains('as-cards')) {
+      $btnCards.classList.add('active');
+    } else {
+      $btnTable.classList.add('active');
+    }
+
+    $btnCards.addEventListener('click', toCards);
+    $btnTable.addEventListener('click', toTable);
+  }
 });
 
-const ticketListViewCard = document.querySelector('.ticket-list-view-card');
-const btnCards = document.querySelector('.grid-view'); //Vista de tarjetas
-const btnTable = document.querySelector('.view-list'); //Vista de tabla
-
-btnTable.addEventListener('click', () => {
-
-});
-
-btnCards.addEventListener('click', () => {
-
-  } );
+//# sourceMappingURL=main.js.map
 

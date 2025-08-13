@@ -59,10 +59,10 @@
             </button>
         </div>
         <div class="view-controls">
-            <button class="view-btn">
+            <button class="view-btn grid-view " title="Vista tarjetas" >
                 <span class="material-symbols-outlined">grid_view</span>
             </button>
-            <button class="view-btn active">
+            <button class="view-btn view-list" title="Vista tabla">
                 <span class="material-symbols-outlined">view_list</span>
             </button>
         </div>
@@ -70,7 +70,10 @@
 
     <!-- Lista de tickets -->
 <section class="ticket-list-view as-cards" id="tickets">
+    
+    
     <article class="ticket-card">
+        
             <!-- Contenedor para sección 1 y sección 4 -->
             <div class="section-1-4-container">
                 <!-- SECCIÓN 1: Foto y nombre -->
@@ -165,6 +168,43 @@
     </div>
        </div>
         </article>
+        <table class="tickets-table" aria-label="Tabla de bonos">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>N° Bono</th>
+                    <th>Estado</th>
+                    <th>Tipo de incidencia</th>
+                    <th>Incidencia</th>
+                    <th>Descripción</th>
+                    <th>F. registro</th>
+                    <th>T. atención</th>
+                    <th>F. asignación</th>
+                    <th>Adj.</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>JUAN CARLOS ZUÑIGA</td>
+                    <td>INT2013-5486</td>
+                    <td>Atendido</td>
+                    <td>Tipo de incidencia</td>
+                    <td>Nombre de la incidencia</td>
+                    <td class="td-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                    <td>18/05/2000</td>
+                    <td>30min</td>
+                    <td>20/05/2000</td>
+                    <td>2</td>
+                    <td>
+                        <button class="options-button" title="Ver detalle">
+                            <span class="material-symbols-outlined">visibility</span>
+                        </button>
+                    </td>
+                </tr>
+    <!-- Duplica <tr> para más filas -->
+            </tbody>
+        </table>
 
      
     </section>
