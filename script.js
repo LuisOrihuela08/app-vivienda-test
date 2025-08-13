@@ -166,3 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+const ticketListViewCard = document.querySelector('.ticket-list-view-card');
+const btnCards = document.querySelector('.grid-view'); //Vista de tarjetas
+const btnTable = document.querySelector('.view-list'); //Vista de tabla
+
+btnTable.addEventListener('click', () => {
+
+});
+
+btnCards.addEventListener('click', () => {
+
+  } );
+

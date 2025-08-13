@@ -289,8 +289,10 @@ main {
   border-color: #d0d7de;
 }
 
-/* Lista de tickets */
-.ticket-list {
+/* ------------------------------------------ Vista Cards--------------------------------------------------------------------------------------------------------------------- */
+
+
+.ticket-list-view.as-cards {
   padding: 12px 24px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -302,7 +304,7 @@ main {
 
 
 
-.ticket-card {
+.ticket-list-view.as-cards .ticket-card {
             background: white;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -313,14 +315,13 @@ main {
             height: 13rem;
             position: relative; /* Para que el posicionamiento absoluto funcione */
       }
-      .content-sections {
+.ticket-list-view.as-cards      .content-sections {
   display: flex;
   flex-direction: row;
   flex: 1;
 }
 
-        /* SECCIÓN 1: Foto y nombre (izquierda) */
-        .section-1 {
+ .ticket-list-view.as-cards       .section-1 {
             background-color: #fff;
             padding: 1rem;
             display: flex;
@@ -330,7 +331,7 @@ main {
             min-width: 140px;
         }
 
-        .user-photo {
+.ticket-list-view.as-cards   .user-photo {
             width: 8rem;
             height: 8rem;
             border-radius: 50%;
@@ -339,7 +340,7 @@ main {
             border: 2px solid #e3f2fd;
         }
 
-        .user-name {
+ .ticket-list-view.as-cards   .user-name {
             font-size: 0.75rem;
             font-weight: 700;
             text-align: center;
@@ -348,7 +349,7 @@ main {
         }
 
         /* SECCIÓN 2: Información básica */
-        .section-2 {
+ .ticket-list-view.as-cards      .section-2 {
             padding: 1rem;
             display: flex;
             flex-direction: column;
@@ -357,53 +358,53 @@ main {
             background-color: #fff;
         }
 
-        .info-item {
+.ticket-list-view.as-cards       .info-item {
             margin-bottom: 0.5rem;
             font-size: 0.75rem;
         }
 
-        .info-label {
+.ticket-list-view.as-cards      .info-label {
             color: #666;
             font-weight: 500;
             margin-bottom: 0.2rem;
         }
 
-        .info-value {
+.ticket-list-view.as-cards     .info-value {
             color: #333;
             font-weight: 600;
         }
 
         /* SECCIÓN 3: Información detallada (más espacio) */
-        .section-3 {
+ .ticket-list-view.as-cards      .section-3 {
             flex: 1;
             padding: 1rem;
             padding-top: 0.1rem;
             display: flex;
             flex-direction: column;
-            background-color: #fff;
+            background-color: red;
         }
 
-        .detail-label {
+ .ticket-list-view.as-cards       .detail-label {
             font-size: 0.7rem;
             color: #888;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .detail-value {
+ .ticket-list-view.as-cards       .detail-value {
             font-size: 0.85rem;
             color: #333;
             font-weight: 600;
 
         }
 
-        .description {
+ .ticket-list-view.as-cards       .description {
             font-size: 0.8rem;
             color: #666;
             line-height: 1.4;
         }
 
-        .status-indicator {
+ .ticket-list-view.as-cards       .status-indicator {
             display: flex;
             align-items: center;
             font-size: 0.75rem;
@@ -413,31 +414,29 @@ main {
             gap: 0.5rem;
         }
 
-        .status-item {
+.ticket-list-view.as-cards       .status-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
-        .pgrueso{
+ .ticket-list-view.as-cards       .pgrueso{
             font-weight: 700;
             font-size: 0.8rem;
             color: #666;
             align-items: center;
         }
-        .pnormal{
+ .ticket-list-view.as-cards       .pnormal{
             font-weight: 400;
             font-size: 0.8rem;
             color: #666;
             align-items: center;
         }
 
-        .status-icon {
+.ticket-list-view.as-cards       .status-icon {
             font-size: 1.2rem;
         }
-
-        /* SECCIÓN 4: Opciones/Acciones (derecha) */
-        .section-4 {
+.ticket-list-view.as-cards      .section-4 {
           padding-top: 10px;
           padding-right: 10px;
             display: flex;
@@ -448,7 +447,7 @@ main {
             
         }
 
-        .options-button {
+.ticket-list-view.as-cards       .options-button {
             background: none;
             border-radius: 20%;
             cursor: pointer;
@@ -462,13 +461,13 @@ main {
             border: 1px solid #ccc;
         }
 
-        .options-button:hover {
+ .ticket-list-view.as-cards       .options-button:hover {
             background-color: #e0e0e0;
             color: #575656;
             transform: scale(1.1);
         }
         
-      .info-item-bottom{
+.ticket-list-view.as-cards    .info-item-bottom{
         display: flex;
         color: #2e7d32;
         padding: 0.3rem;
@@ -476,7 +475,7 @@ main {
         border-radius: 12px;
         width: 100px;
       }
-      .info-item-iconsuperior{
+ .ticket-list-view.as-cards     .info-item-iconsuperior{
         display: flex;
         align-items: center;
         justify-content: center;
@@ -484,7 +483,7 @@ main {
         color: black;
 
       }
-      .linea-azul {
+ .ticket-list-view.as-cards     .linea-azul {
         width: 50%;
         height: 2px;
         background-color: #002df5;
@@ -493,13 +492,13 @@ main {
       }
 
       /* Contenedor para sección 1 y sección 4 - solo activo en media query */
-      .section-1-4-container {
+.ticket-list-view.as-cards    .section-1-4-container {
         display: flex; /* En pantallas normales, mantiene flex normal */
         flex-direction: row;
       }
 
       /* En pantallas normales, la sección 4 mantiene su posición original */
-      .section-1-4-container .section-4 {
+.ticket-list-view.as-cards     .section-1-4-container .section-4 {
         position: absolute;
         top: 10px;
         right: 10px;
@@ -510,13 +509,13 @@ main {
       }
 
 
-.content-sections {
+.ticket-list-view.as-cards .content-sections {
   display: flex;
   flex-direction: row;
   flex: 1;
 }
 
-.status-icon-container{
+.ticket-list-view.as-cards   .status-icon-container{
   background-color: rgb(93, 94, 250);
   width: 30px;
   height: 30px;
@@ -527,7 +526,7 @@ main {
   position: relative;
   
 }
-.status-icon-container .material-symbols-outlined{
+.ticket-list-view.as-cards .status-icon-container .material-symbols-outlined{
   position: absolute;
   color: white;
 }
@@ -567,6 +566,7 @@ main {
 
 
 
+/* ------------------------------------------ inicio Media 516 821--------------------------------------------------------------------------------------------------------------------- */
 
 
 
@@ -574,10 +574,10 @@ main {
        /* Responsive */
         @media (max-width: 516px) and (min-width: 360px) {
 
-.ticket-list{
+.ticket-list-view.as-cards{
     grid-template-columns: 1fr;
 }
-.ticket-card {
+.ticket-list-view.as-cards .ticket-card {
     height: 28rem;
     flex-direction: column; 
     justify-content: center;   
@@ -585,19 +585,19 @@ main {
   }
 
   /* Contenedor para sección 1 y sección 4 */
-  .section-1-4-container {
+.ticket-list-view.as-cards  .section-1-4-container {
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: center;
   }
 
-  .section-1 {
+.ticket-list-view.as-cards  .section-1 {
     flex: 1;
     display: block;
   }
 
-  .section-4 {
+.ticket-list-view.as-cards  .section-4 {
     position: static; 
     width: 50px;
     height: 50px;
@@ -607,31 +607,31 @@ main {
     justify-content: center;
   }
 
-  .content-sections {
+.ticket-list-view.as-cards  .content-sections {
     display: flex;
     flex-direction: column;
     width: 100%;
   }
 
-  .user-photo {
+.ticket-list-view.as-cards  .user-photo {
     display: none;
   }
   
-  .linea-azul {
+.ticket-list-view.as-cards  .linea-azul {
     margin-top: 1rem;
     width: 100%;
   }
-    .section-2{
+.ticket-list-view.as-cards   .section-2{
     margin-left: 3rem;
     align-items: start;
     margin-left: 0.8rem;
 
   }
-  .section-3{
+.ticket-list-view.as-cards  .section-3{
     margin-left: 0.8rem;
     }
 
-  .info-item-bottom{
+.ticket-list-view.as-cards  .info-item-bottom{
     width: 100px;
   }
 
@@ -654,33 +654,34 @@ main {
 
 
 
+/* ------------------------------------------ inicio Media 820 821--------------------------------------------------------------------------------------------------------------------- */
 
 
 
         /* Responsive */
-        @media (max-width: 820px) and (min-width: 517px) {
-.ticket-list{
+        @media (max-width: 859px) and (min-width: 517px) {
+.ticket-list-view.as-cards{
     grid-template-columns: 1fr;
 }
-.ticket-card {
+.ticket-list-view.as-cards .ticket-card {
     height: 20rem;
     flex-direction: column;    
   }
 
   /* Contenedor para sección 1 y sección 4 */
-  .section-1-4-container {
+.ticket-list-view.as-cards  .section-1-4-container {
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: center;
   }
 
-  .section-1 {
+.ticket-list-view.as-cards  .section-1 {
     flex: 1;
     display: block;
   }
 
-  .section-4 {
+.ticket-list-view.as-cards  .section-4 {
     position: static; 
     width: 50px;
     height: 50px;
@@ -690,50 +691,53 @@ main {
     justify-content: center;
   }
 
-  .content-sections {
+.ticket-list-view.as-cards  .content-sections {
     display: flex;
     flex-direction: row;
     width: 100%;
   }
 
-  .user-photo {
+.ticket-list-view.as-cards  .user-photo {
     display: none;
   }
-  
-  .linea-azul {
+
+.ticket-list-view.as-cards  .linea-azul {
     margin-top: 1rem;
     width: 100%;
   }
-    .section-2{
+ .ticket-list-view.as-cards  .section-2{
       position: inherit;
     margin-left: 3rem;
   }
-  .section-3{
+.ticket-list-view.as-cards  .section-3{
     margin-left: 2rem;
   }
         }
 
-@media (max-width: 1305px) and (min-width: 821px) {
+/* ------------------------------------------ inicio Media 1305 821--------------------------------------------------------------------------------------------------------------------- */
 
-.ticket-card {
+        
+@media (max-width: 1305px) and (min-width: 860px) {
+
+.ticket-list-view.as-cards .ticket-card {
     height: 20rem;
     flex-direction: column;    
   }
 
   /* Contenedor para sección 1 y sección 4 */
-  .section-1-4-container {
+ .ticket-list-view.as-cards .section-1-4-container {
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: center;
   }
 
-  .section-1 {
+.ticket-list-view.as-cards  .section-1 {
     flex: 1;
     display: block;
   }
 
-  .section-4 {
+.ticket-list-view.as-cards  .section-4 {
     position: static; /* Desactiva el posicionamiento absoluto en media query */
     width: 50px;
     height: 50px;
@@ -743,22 +747,23 @@ main {
     justify-content: center;
   }
 
-  .content-sections {
+.ticket-list-view.as-cards  .content-sections {
     display: flex;
     flex-direction: row;
     width: 100%;
   }
 
-  .user-photo {
+ .ticket-list-view.as-cards  .user-photo {
     display: none;
   }
-  
-  .linea-azul {
+
+  .ticket-list-view.as-cards  .linea-azul {
     margin-top: 1rem;
     width: 100%;
   }
         }
         
+/* ------------------------------------------ Fin Media 1305 821--------------------------------------------------------------------------------------------------------------------- */
         
 
 
@@ -766,7 +771,7 @@ main {
 
 
 
-
+/* ------------------------------------------Paginacion--------------------------------------------------------------------------------------------------------------------- */
 
 
         .pagination {
@@ -802,7 +807,6 @@ main {
   border: 1px solid #333;
   cursor: not-allowed;
 }
-
 .pagination-ellipsis {
   padding: 0 6px;
   color: #888;
