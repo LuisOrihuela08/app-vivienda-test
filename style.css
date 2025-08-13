@@ -45,6 +45,12 @@ button {
   cursor: pointer;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--height-header));
+}
+
 .material-symbols-outlined {
   font-variation-settings:
     'FILL' 0,
@@ -833,6 +839,10 @@ main {
   gap: 6px;
   padding: 16px 0;
   background: #fff;
+  flex-shrink: 0;          /* no se achique */
+  border-top: 1px solid #eee;
+  position: sticky;        /* se queda abajo al hacer scroll en #tickets */
+  bottom: 0;
 }
 
 .pagination-btn {
@@ -864,4 +874,18 @@ main {
   color: #888;
   font-size: 1rem;
   user-select: none;
+}
+
+
+#tickets {
+  flex: 1;                 /* que ocupe todo el espacio disponible */
+  overflow-y: auto;        /* scroll si hay mucho contenido */
+}
+
+.pagination {
+  flex-shrink: 0;          /* no se achique */
+  border-top: 1px solid #eee;
+  background: #fff;
+  position: sticky;        /* se queda abajo al hacer scroll en #tickets */
+  bottom: 0;
 }
