@@ -27,8 +27,7 @@
 }
 
 .logo {
-    height: 104px;
-    width: 417px;
+    inline-size: clamp(160px, 30vw, 417px);
     position: absolute;
     top: 40px;
     left: 350px;
@@ -251,11 +250,14 @@
 }
 
 .divisor {
-    margin: 20px;
+    margin: 20px 0px;
     width: 100%;
-    display: inline-block;
+    display: flex;
     align-items: center;
     color: #7B7B7B;
+    justify-content: center;
+
+
 }
 
 .line-divisor {
@@ -271,11 +273,16 @@
     border-radius: 8px;
     padding: 0 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.google:hover {
+    background-color: #e0dbdb;
 }
 
 .img-google {
-    height: 60px;
-    width: 60px;
+    height: 40px;
+    width: 40px;
     object-fit: contain;
 }
 
@@ -350,10 +357,7 @@
 
 .logo {
     @media screen and (max-width:1050px) {
-        height: 52px;
-        z-index: 1;
-        width: 220px;
-        top: 30px;
+        top: 40px;
         left: 50px;
     }
 }
