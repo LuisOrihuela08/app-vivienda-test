@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>D.S. – Zonas Afectadas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="decreto-supremo-asignar.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+  <header class="header">
+      <div class="logo">
+        <img src="/img/logomt.png" alt="logo" loading="lazy">
+      </div>
+      <div class="dropdown">
+            <button class="dropdown__toggle">
+                <span class="material-symbols-outlined">account_circle</span>
+                <span class="dropdown__name">Moises Yance</span>
+                <span class="material-symbols-outlined">keyboard_arrow_down</span>
+            </button>
+            <ul class="dropdown__menu">
+                <li><a href="#">Perfil</a></li>
+                <li><a href="#">Configuración</a></li>
+                <li><a href="#">Cerrar sesión</a></li>
+            </ul>
+       </div>
+  </header>
+  <div class="container">
+    <div>
+      <div class="row">
+        <div class="title">D.S. <span id="nrm"></span></div>
+        <a href="#" class="btn btn-secondary" onclick="history.back(); return false;">← Volver</a>
+      </div>
+      <div class="spacer"></div>
+
+      <div class="table-wrap" role="region" aria-label="Zonas afectadas">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Ubigeo</th>
+              <th>Departamento</th>
+              <th>Provincia</th>
+              <th>Distrito</th>
+              <th class="col-estado">Estado</th>
+              <th class="col-actions">Seleccionar</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-zonas">
+            <!-- filas generadas por JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div id="empty-zonas" class="empty" style="display:none">
+        <div style="font-weight:700; margin-bottom:6px;">No se encontraron registros.</div>
+        <div class="muted">Cuando existan zonas afectadas aparecerán aquí.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Asignar Evaluadores -->
+  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+      <div class="modal-head" id="modalTitle">Evaluadores</div>
+      <div class="small" id="modalDesc">Evaluadores ubigeo <span class="tag" id="modalUbigeo"></span></div>
+
+      <div class="modal-sub">Seleccionados: (<span id="countSeleccionados">0</span>)</div>
+
+      <div class="table-wrap" role="region" aria-label="Listado de evaluadores" style="max-height: 320px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nombres</th>
+              <th>DNI</th>
+              <th>Opción</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-evaluadores">
+            <!-- filas evaluadores -->
+          </tbody>
+        </table>
+      </div>
+
+      <div id="empty-eval" class="empty" style="display:none">
+        <div style="font-weight:700; margin-bottom:6px;">No se encontraron registros.</div>
+        <div class="muted">Cuando existan evaluadores aparecerán aquí.</div>
+      </div>
+
+      <div class="modal-actions" style="margin-top:14px;">
+        <button class="btn" id="btnCancelar">Cancelar</button>
+        <button class="btn btn-primary" id="btnRegistrar">Registrar evaluadores</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===============================
+    // Datos demo (reemplaza por fetch)
+    // ===============================
+    // const nrmDecreto = "004-2025-PCM";
+    const zonasAfectadas = [
+      { id: 1, ubigeo: "150101", departamento: "Lima", provincia: "Lima", distrito: "Cercado de Lima", estado: "Asignado" },
+      { id: 2, ubigeo: "150122", departamento: "Lima", provincia: "Lima", distrito: "San Juan de Lurigancho", estado: "Por asignar" },
+      { id: 3, ubigeo: "040101", departamento: "Arequipa", provincia: "Arequipa", distrito: "Arequipa", estado: "Por asignar" },
+      { id: 4, ubigeo: "080101", departamento: "Cusco", provincia: "Cusco", distrito: "Cusco", estado: "Por asignar" }
+    ];
+    const evaluadores = [
+      { id: 101, nombres: "María López", dni: "42155896" },
+      { id: 102, nombres: "Juan Pérez", dni: "75688912" },
+      { id: 103, nombres: "Lucía Ramos", dni: "10983456" },
+      { id: 104, nombres: "Carlos Díaz", dni: "73829104" },
+      { id: 105, nombres: "Ana Castillo", dni: "49281735" }
+    ];
+
+    // Simula asignaciones por zona (persisten mientras no recargues la página)
+    /** Map<zonaId, Set<evaluadorId>> */
+    const assignments = new Map();
+
+    // ====== Estado UI ======
+    let loadingZonas = false;    // cambia a true si quieres ver skeleton en zonas
+    let loadingEval  = false;    // idem para evaluadores
+
+    // ====== Elementos ======
+    const elNrm = document.getElementById('nrm');
+    const tbodyZonas = document.getElementById('tbody-zonas');
+    const emptyZonas = document.getElementById('empty-zonas');
+
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modal = modalBackdrop.querySelector('.modal');
+    const modalUbigeo = document.getElementById('modalUbigeo');
+    const countSeleccionados = document.getElementById('countSeleccionados');
+    const tbodyEval = document.getElementById('tbody-evaluadores');
+    const emptyEval = document.getElementById('empty-eval');
+    const btnCancelar = document.getElementById('btnCancelar');
+    const btnRegistrar = document.getElementById('btnRegistrar');
+
+    // Contexto modal
+    let currentZona = null;
+    let selectedSet = new Set(); // Set<number> evaluadorId para la zona actual
+
+    // ===============================
+    // Render helpers
+    // ===============================
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+        .replaceAll('"','&quot;').replaceAll("'","&#39;");
+    }
+    function tagClassForEstado(estado){
+      const s = (estado || '').toLowerCase();
+      if (/(asignado|activo|vigente|habilitado)/.test(s)) return 'tag-success';
+      if (/(pendiente|observado|atención)/.test(s)) return 'tag-warning';
+      if (/(por asignar|cerrado|inactivo|anulado)/.test(s)) return 'tag-danger';
+      return 'tag-info';
+    }
+
+    function renderZonas(){
+      tbodyZonas.innerHTML = '';
+      if (loadingZonas){
+        for(let i=0;i<5;i++){
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><div class="skeleton" style="width:110px"></div></td>
+            <td><div class="skeleton" style="width:140px"></div></td>
+            <td><div class="skeleton" style="width:140px"></div></td>
+            <td><div class="skeleton" style="width:160px"></div></td>
+            <td><div class="skeleton" style="width:80px"></div></td>
+            <td><div class="skeleton" style="width:100px"></div></td>
+          `;
+          tbodyZonas.appendChild(tr);
+        }
+        emptyZonas.style.display = 'none';
+        return;
+      }
+
+      if (!zonasAfectadas.length){
+        emptyZonas.style.display = 'block';
+        return;
+      }
+      emptyZonas.style.display = 'none';
+
+      zonasAfectadas.forEach(z => {
+        const tr = document.createElement('tr');
+        const estadoClass = tagClassForEstado(z.estado);
+        tr.innerHTML = `
+          <td>${escapeHtml(z.ubigeo)}</td>
+          <td>${escapeHtml(z.departamento)}</td>
+          <td>${escapeHtml(z.provincia)}</td>
+          <td>${escapeHtml(z.distrito)}</td>
+          <td><span class="tag ${estadoClass}">${escapeHtml(z.estado)}</span></td>
+          <td class="col-actions">
+            <button class="btn" data-action="asignar" data-id="${z.id}">Seleccionar</button>
+          </td>
+        `;
+        tbodyZonas.appendChild(tr);
+      });
+    }
+
+    function renderEvaluadores(){
+      tbodyEval.innerHTML = '';
+      if (loadingEval){
+        for(let i=0;i<5;i++){
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><div class="skeleton" style="width:180px"></div></td>
+            <td><div class="skeleton" style="width:120px"></div></td>
+            <td><div class="skeleton" style="width:80px; height:18px"></div></td>
+          `;
+          tbodyEval.appendChild(tr);
+        }
+        emptyEval.style.display = 'none';
+        return;
+      }
+
+      if (!evaluadores.length){
+        emptyEval.style.display = 'block';
+        return;
+      }
+      emptyEval.style.display = 'none';
+
+      evaluadores.forEach(ev => {
+        const tr = document.createElement('tr');
+        const checked = selectedSet.has(ev.id) ? 'checked' : '';
+        tr.innerHTML = `
+          <td>${escapeHtml(ev.nombres)}</td>
+          <td>${escapeHtml(ev.dni)}</td>
+          <td>
+            <input type="checkbox" class="checkbox" data-ev-id="${ev.id}" ${checked} />
+          </td>
+        `;
+        tbodyEval.appendChild(tr);
+      });
+      updateSeleccionadosCount();
+    }
+
+    function updateSeleccionadosCount(){
+      countSeleccionados.textContent = String(selectedSet.size);
+    }
+
+    // ===============================
+    // Modal control
+    // ===============================
+    function openModalForZona(zona){
+      currentZona = zona;
+      modalUbigeo.textContent = zona.ubigeo || '';
+      const pre = assignments.get(zona.id);
+      selectedSet = new Set(pre ? Array.from(pre) : []);
+      // Abre
+      modalBackdrop.classList.add('backdrop-open');
+      modal.classList.add('open');
+      modalBackdrop.setAttribute('aria-hidden','false');
+
+      // Render evaluadores
+      renderEvaluadores();
+      btnCancelar.focus();
+    }
+
+    function closeModal(){
+      modalBackdrop.classList.remove('backdrop-open');
+      modal.classList.remove('open');
+      modalBackdrop.setAttribute('aria-hidden','true');
+      currentZona = null;
+      selectedSet = new Set();
+      updateSeleccionadosCount();
+    }
+
+    // No cerrar por clic en backdrop (closable=false)
+    modalBackdrop.addEventListener('click', (e)=>{
+      if(e.target === modalBackdrop){
+        // ignorar
+      }
+    });
+    // Permitir cerrar con Escape
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && modalBackdrop.classList.contains('backdrop-open')){
+        closeModal();
+      }
+    });
+
+    btnCancelar.addEventListener('click', closeModal);
+    btnRegistrar.addEventListener('click', ()=>{
+      if (!currentZona) return;
+      // Guardar asignaciones
+      assignments.set(currentZona.id, new Set(selectedSet));
+      // Aquí podrías hacer fetch/POST al backend con [...selectedSet] y currentZona.id
+      // Ejemplo:
+      // fetch('/api/asignar', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ zonaId: currentZona.id, evaluadores: [...selectedSet] })})
+
+      closeModal();
+      alert('Evaluadores registrados para la zona ' + currentZona.ubigeo + ': ' + [...(assignments.get(currentZona.id)||[])].length);
+    });
+
+    // Delegación de eventos: tabla ZONAS
+    tbodyZonas.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      if(btn.dataset.action === 'asignar'){
+        const id = Number(btn.dataset.id);
+        const zona = zonasAfectadas.find(z => z.id === id);
+        if (zona) openModalForZona(zona);
+      }
+    });
+
+    // Delegación: tabla EVALUADORES (checkboxes)
+    tbodyEval.addEventListener('change', (e)=>{
+      const cb = e.target.closest('input[type="checkbox"][data-ev-id]');
+      if(!cb) return;
+      const evId = Number(cb.dataset.evId);
+      if(cb.checked) selectedSet.add(evId);
+      else selectedSet.delete(evId);
+      updateSeleccionadosCount();
+    });
+
+    // ===============================
+    // Init
+    // ===============================
+    function init(){
+      const params = new URLSearchParams(window.location.search);
+      const nrm = params.get('nrm') || '';
+      elNrm.textContent = nrm;
+      renderZonas();
+    }
+    init();
+  </script>
+  <script src="header.js"></script>
+</body>
+</html>
