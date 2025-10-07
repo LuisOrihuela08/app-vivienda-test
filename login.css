@@ -27,11 +27,13 @@
 }
 
 .logo {
-    inline-size: clamp(160px, 30vw, 417px);
+    /* inline-size: clamp(160px, 30vw, 417px); */
     position: absolute;
     top: 40px;
-    left: 350px;
+    left: 40px;
     z-index: 3;
+    height: 60px;
+    width: auto;
 }
 .trescolores{
     z-index: 2;
@@ -356,9 +358,9 @@
 
 
 .logo {
-    @media screen and (max-width:1050px) {
+    @media (max-width:1050px) {
         top: 40px;
-        left: 50px;
+        left: 40px;
     }
 }
 
@@ -397,9 +399,8 @@
         font-size: 30px;
     }
     .logo{
-        left: 300px;
-        width: 200px;
-        height: 55px;
+        left: 50%;
+        transform: translateX(-50%);
     }
     .login{
         padding: 14px 30px;
@@ -410,4 +411,32 @@
     .login{
         width: 500px;
     }
+}
+
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    --transition-duration: 500ms;
+    --transition-delay: 200ms;
+    --delay-preview: 0ms;
+    --count: 1;
+}
+
+.items .item {
+    transition-property: opacity, transform, scale;
+    transition-duration: var(--transition-duration);
+    transition-delay: calc(var(--delay-preview) + var(--transition-delay) * var(--index));
+
+    @starting-style {
+        opacity: 0;
+        transform: translateX(10px);
+        scale: 1.5;
+    }
+}
+
+.items .item-infinite {
+    opacity: 0;
+    transform: translateX(10px) scale(1.5);
+    will-change: opacity, transform;
 }

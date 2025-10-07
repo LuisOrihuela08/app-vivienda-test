@@ -127,10 +127,19 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 4px 0 12px;
+  margin-block: 24px;
   font-weight: 700;
   letter-spacing: .2px;
-  font-size: clamp(16px, 3vw, 20px);
+  font-size: clamp(24px, 3vw, 32px);
+}
+
+
+.header-table {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-block: 18px;
+  font-size: clamp(16px, 3vw, 24px);
 }
 
 .title-badge {
@@ -188,6 +197,10 @@ body {
   white-space: nowrap
 }
 
+.row-actions {
+  text-align: center;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -206,8 +219,7 @@ body {
 }
 
 .btn:hover {
-  border-color: rgba(255, 255, 255, .18);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, .25)
+  border-color: rgba(0, 0, 0, 0.664);
 }
 
 .btn:active {
@@ -308,4 +320,7 @@ body {
   border-radius: 999px;
   font-size: 12px;
   color: #0a0a0a
+}
+.user-info {
+  font-size: 18px;
 }

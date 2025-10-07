@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Verificación de Viviendas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"></head> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        .header-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-inline: 24px;
+            margin-bottom: 24px;
+        }
+
+        :root{
+        --accent: #2563eb;       /* azul */
+        --text: #0f172a;         /* slate-900 */
+        --outline: #cbd5e1;      /* slate-300 */
+        --bg: #ffffff;
+        }
+
+        .btn-group{
+        display: inline-flex;
+        gap: .5rem;
+        padding: .75rem;
+        background: var(--bg);
+        border: 1px solid var(--outline);
+        border-radius: .75rem;
+        }
+
+        /* Ocultar radios, pero accesibles a lectores de pantalla */
+        .btn-radio{
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        }
+
+        /* Estado base: outline (incluye el caso "checked:none") */
+        .btn{
+        cursor: pointer;
+        user-select: none;
+        padding: .625rem 1rem;
+        border: 2px solid var(--outline);
+        border-radius: .6rem;
+        color: var(--text);
+        background: transparent;
+        font: 600 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        transition: border-color .2s ease, background-color .2s ease, color .2s ease, box-shadow .2s ease;
+        }
+        .btn:hover{
+        border-color: #94a3b8;         /* slate-400 */
+        }
+        .btn:focus-visible{
+        outline: 3px solid color-mix(in oklab, var(--accent) 35%, white);
+        outline-offset: 2px;
+        }
+
+        /* Lógica solo con CSS:
+        Cuando #opt1 está checked, su label (el 1ro después de los radios) se pinta azul,
+        y el otro queda en outline. Igual para #opt2. */
+        .btn-radio#opt1:checked ~ .btn:nth-of-type(1),
+        .btn-radio#opt2:checked ~ .btn:nth-of-type(2){
+        background: var(--accent);
+        border-color: var(--accent);
+        color: white;
+        box-shadow: 0 6px 14px -6px color-mix(in oklab, var(--accent) 40%, transparent);
+        }
+
+        /* Opcional: quitar efecto “pegado” en móviles */
+        @media (hover: none){
+        .btn:hover{ border-color: var(--outline); }
+        }
+
+
+        .card {
+            margin-top: 14px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            color: #333;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .definicion {
+            margin-bottom: 10px;
+            border-left: 3px solid #003874;
+            padding-left: 8px;
+        }
+
+        .definicion strong {
+        color: #003874;
+        }
+
+        .nota {
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 8px;
+            margin-top: 10px;
+        }
+
+        :root {
+            --primary-color: #0056a3;
+            --secondary-color: #f0f4f8;
+            --border-color: #ccc;
+            --input-focus-border: #0056a3;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: .2px;
+            font-size: clamp(24px, 3vw, 32px);
+            padding-inline: 24px;
+        }
+
+        .user-info {
+            font-size: 18px;
+            padding-inline: 24px;
+        }
+        form {
+            padding-inline: 24px;
+        }
+
+        fieldset {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: #fcfcfc;
+        }
+
+        legend {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--primary-color);
+            padding: 0 10px;
+            margin-left: 10px;
+        }
+
+        /* --- Grid Layout for Inputs --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+        }
+        
+        .grid-col-1 { grid-column: span 1; }
+        .grid-col-2 { grid-column: span 2; }
+        .grid-col-3 { grid-column: span 3; }
+        .grid-col-full { grid-column: 1 / -1; }
+
+
+        /* --- Form Elements --- */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--input-focus-border);
+            box-shadow: 0 0 5px rgba(0, 90, 158, 0.2);
+            outline: none;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            box-sizing: border-box;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* --- Radio & Checkbox Groups --- */
+        .choice-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 8px;
+        }
+
+        .choice-group label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: normal;
+        }
+
+        /* --- Table Styling --- */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-size: 0.85em;
+        }
+        
+        td input {
+            width: 95%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        td select {
+            width: 95%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* --- Button --- */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 1.5rem;
+        }
+
+        .btn-submit:hover {
+            background-color: #00457c;
+            transform: translateY(-2px);
+        }
+
+        #carousel-container {
+            height: 500px;
+            position: relative;
+            background: #000;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper {
+        width: 100%;
+        height: 100%;
+        }
+
+        .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #444;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .grid-col-2, .grid-col-3 {
+                grid-column: span 1;
+            }
+        }
+
+        #main-container:has(.btn-radio#opt1:checked) #carousel-container { display: none; }
+        #main-container:has(.btn-radio#opt1:checked) #verificationForm{ display: block; }
+        #main-container:has(.btn-radio#opt2:checked) #carousel-container { display: block; }
+        #main-container:has(.btn-radio#opt2:checked) #verificationForm{ display: none; }
+
+    </style>
+</head>
+<body>
+
+  <header class="header">
+      <div class="logo">
+        <img src="/img/logomt.png" alt="logo" loading="lazy">
+      </div>
+      <div class="dropdown">
+            <button class="dropdown__toggle">
+                <span class="material-symbols-outlined">account_circle</span>
+                <span class="dropdown__name">Moises Yance</span>
+                <span class="material-symbols-outlined">keyboard_arrow_down</span>
+            </button>
+            <ul class="dropdown__menu">
+                <li><a href="#">Perfil</a></li>
+                <li><a href="#">Configuración</a></li>
+                <li><a href="#">Cerrar sesión</a></li>
+            </ul>
+       </div>
+  </header>
+
+    <div id="main-container" style="margin-top: 78px;">
+        <div class="header-body">
+            <div class="title">
+                <span>Datos Ficha de campo</span>
+                <a href="/bonos.html" class="btn btn-secondary">← Volver</a>
+            </div>
+            <div class="btn-group" role="group" aria-label="Doble opción">
+                <input type="radio" name="choice" id="opt1" class="btn-radio" checked>
+                <input type="radio" name="choice" id="opt2" class="btn-radio">
+
+                <label for="opt1" class="btn">Ficha</label>
+                <label for="opt2" class="btn">Carrousel</label>
+            </div>
+        </div>
+
+        <div class="user-info" style="margin-bottom: 24px;">
+            <p><strong>DNI:</strong> <span>4545454</span></p>
+            <p><strong>Nombre</strong> <span>Juan Carlos Zañiga</span></p>
+        </div>
+        <div id="carousel-container">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">Slide 1</div>
+                    <div class="swiper-slide">Slide 2</div>
+                    <div class="swiper-slide">Slide 3</div>
+                    <div class="swiper-slide">Slide 4</div>
+                    <div class="swiper-slide">Slide 5</div>
+                    <div class="swiper-slide">Slide 6</div>
+                    <div class="swiper-slide">Slide 7</div>
+                    <div class="swiper-slide">Slide 8</div>
+                    <div class="swiper-slide">Slide 9</div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+            <script>
+                var swiper = new Swiper(".mySwiper", {
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                });
+            </script>
+        </div>
+
+        <form action="#" method="post" id="verificationForm">
+            <fieldset>
+                <legend>Identificación</legend>
+                <div class="grid-container">
+                    <div class="form-group">
+                        <label for="codigoFormulario">Código de Formulario</label>
+                        <input type="text" id="codigoFormulario" name="codigoFormulario">
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaVerificacion">Fecha de Verificación</label>
+                        <input type="date" id="fechaVerificacion" name="fechaVerificacion">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>1. Datos Generales</legend>
+                <div class="grid-container">
+                    <div class="form-group grid-col-full">
+                        <label for="ubigeo">UBIGEO</label>
+                        <input type="text" id="ubigeo" name="ubigeo">
+                    </div>
+                    <div class="form-group">
+                        <label for="departamento">Departamento</label>
+                        <input type="text" id="departamento" name="departamento">
+                    </div>
+                    <div class="form-group">
+                        <label for="provincia">Provincia</label>
+                        <input type="text" id="provincia" name="provincia">
+                    </div>
+                    <div class="form-group">
+                        <label for="distrito">Distrito</label>
+                        <input type="text" id="distrito" name="distrito">
+                    </div>
+                    <div class="form-group">
+                        <label for="centroPoblado">Centro Poblado</label>
+                        <input type="text" id="centroPoblado" name="centroPoblado">
+                    </div>
+                    <div class="form-group">
+                        <label for="anexo">Anexo/Caserío</label>
+                        <input type="text" id="anexo" name="anexo">
+                    </div>
+                     <div class="form-group">
+                        <label for="comunidadCampesina">Comunidad Campesina</label>
+                        <input type="text" id="comunidadCampesina" name="comunidadCampesina">
+                    </div>
+                    <div class="form-group">
+                        <label for="comunidadCampesina">Comunidad Nativa</label>
+                        <input type="text" id="comunidadCampesina" name="comunidadCampesina">
+                    </div>
+                    <div class="form-group grid-col-full">
+                        <label>Tipo de Vía</label>
+                        <div class="choice-group">
+                            <label><input type="radio" name="tipoVia" value="avenida"> Avenida</label>
+                            <label><input type="radio" name="tipoVia" value="calle"> Calle</label>
+                            <label><input type="radio" name="tipoVia" value="jiron"> Jirón</label>
+                            <label><input type="radio" name="tipoVia" value="pasaje"> Pasaje</label>
+                            <label><input type="radio" name="tipoVia" value="otro"> Otro</label>
+                            <label><input type="text" name="" id=""></label>
+                        </div>
+                    </div>
+                    <div class="form-group grid-col-2">
+                        <label for="nombreVia">Nombre de la Vía</label>
+                        <input type="text" id="nombreVia" name="nombreVia">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">N° Interno</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Manzana</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Lote</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Block</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Piso</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Otros</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group grid-col-full">
+                        <label for="ubigeo">Nombre de la habilitación urbana</label>
+                        <input type="text" id="ubigeo" name="ubigeo">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Coordenadas geográficas</legend>
+                <div class="form-group">
+                    <div class="grid-container">
+                        <div class="form-group">
+                            <label for="nroPuerta">Latitud - N</label>
+                            <input type="text" id="nroPuerta" name="nroPuerta">
+                        </div>
+                        <div class="form-group">
+                            <label for="nroPuerta">Longitud - W</label>
+                            <input type="text" id="nroPuerta" name="nroPuerta">
+                        </div>
+                        <div class="form-group">
+                            <label for="nroPuerta">Altitud</label>
+                            <input type="text" id="nroPuerta" name="nroPuerta">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Estado Físico de la Vivienda</legend>
+                <div class="form-group">
+                    <div class="choice-group">
+                       <label><input type="radio" name="estadoVivienda" value="colapsada"> Vivienda Colapsada</label>
+                       <label><input type="radio" name="estadoVivienda" value="inhabitable"> Vivienda Inhabitable</label>
+                       <label><input type="radio" name="estadoVivienda" value="recuperable"> Vivienda con Daño Recuperable</label>
+                       <label><input type="radio" name="estadoVivienda" value="leve"> Vivienda con Afectación Leve/Moderada</label>
+                       <label><input type="radio" name="estadoVivienda" value="no_afectada"> Vivienda no Afectada</label>
+                    </div>
+                    <div class="card">
+                        <h2>Definiciones de Vivienda</h2>
+                        
+                        <div class="definicion">
+                        <strong>Vivienda colapsada:</strong> Vivienda con daños irreparables, que impliquen el desplome o devastación de la vivienda, lo cual impide su habitabilidad.
+                        </div>
+
+                        <div class="definicion">
+                        <strong>Vivienda inhabitable:</strong> Vivienda con daños irreparables de sus estructuras que ponen en riesgo la seguridad de la familia y por ende su habitabilidad.
+                        </div>
+
+                        <div class="definicion">
+                        <strong>Vivienda con daño recuperable:</strong> Vivienda con daños reparables de la estructura de albañilería o concreto armado que mediante el reemplazo o inclusión de elementos estructurales, la vivienda queda reforzada y asegura la continuidad de los servicios y su habitabilidad.
+                        </div>
+
+                        <div class="definicion">
+                        <strong>Vivienda con afectación leve o moderada:</strong> Vivienda con daños no estructurales en terminaciones como puertas, ventanas, vidrios, tabiques, revestimientos y daños menores en instalaciones sanitarias.
+                        </div>
+
+                        <div class="definicion">
+                        <strong>Vivienda no afectada:</strong> Vivienda que no presenta daños ante la ocurrencia del evento destructivo.
+                        </div>
+
+                        <p class="nota">* Definiciones obtenidas del Reglamento de Ley N° 30852, aprobado mediante D.S. N° 013-2019-VIVIENDA, modificado mediante D.S. N° 005-2023-VIVIENDA.</p>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Datos del Grupo Familiar</legend>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Apellidos y Nombres</th>
+                                <th>Parentesco</th>
+                                <th>Tipo Doc.</th>
+                                <th>N° Doc.</th>
+                                <th>Sexo</th>
+                                <th>Nacionalidad</th>
+                                <th>Estado Civil</th>
+                                <th>Ocupación</th>
+                                <th>Edad</th>
+                                <th>Condicion de Ocupante</th>
+                                <th>Gestando (Si/No)</th>
+                                <th>Tipo de discapacidad</th>
+                                <th>Apoyo Social</th>
+                                <th>Idioma</th>
+                            </tr>
+                        </thead>
+                        <tbody id="family-table-body">
+                            <tr>
+                                <td>1</td>
+                                <td><input type="text" name="familiar_nombre_1"></td>
+                                <td>
+                                    <select name="familiar_parentesco_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="padre">Jefe de Familia</option>
+                                        <option value="">Esposo(a)</option>
+                                        <option value="">conviviente(a)</option>
+                                        <option value="">Hijo(a) / Hijastro(a)</option>
+                                        <option value="">Nieto (a)</option>
+                                        <option value="">Yerno o nuera</option>
+                                        <option value="">Padre / madre</option>
+                                        <option value="">Suegro(a)</option>
+                                        <option value="">Hermano(a)</option>
+                                        <option value="">Cuñado(a)</option>
+                                        <option value="">Otro Pariente</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_tipodoc_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="dni">DNI</option>
+                                        <option value="ce">Carnet de Extranjería</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" name="familiar_nrodoc_1"></td>
+                                <td>
+                                    <select name="familiar_sexo_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_nacionalidad_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="peruana">Peruana</option>
+                                        <option value="extranjera">Otros</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_estadocivil_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="soltero">Soltero</option>
+                                        <option value="casado">Casado</option>
+                                        <option value="divorciado">Viudo / Divorciado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_ocupacion_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="empleado"> Agricultor(a)</option>
+                                        <option value="desempleado">Ganadero(a)</option>
+                                        <option value="jubilado">Jubilado(a)</option>
+                                        <option value="otro">Otros (Detallar)</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" name="familiar_edad_1"></td>
+                                <td>
+                                    <select name="familiar_condicionocupante_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="propietario">Propietario</option>
+                                        <option value="ocupante">Sociedad conyugal</option>
+                                        <option value="Poseedor">Poseedor</option>
+                                        <option value="alquilino">Inquilino / guardian</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="" id=""></td>
+                                <td>
+                                    <select name="familiar_discapacidad_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="fisica">Física</option>
+                                        <option value="Mental">Mental</option>
+                                        <option value="Ninguno">Ninguno</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_apoyosocial_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Qaliwarma">Qaliwarma</option>
+                                        <option value="Cuna Mas">Cuna Mas</option>
+                                        <option value="Juntos">Juntos</option>
+                                        <option value="Pensión 65">Pensión 65</option>
+                                        <option value="Vaso de Leche">Vaso de Leche</option>
+                                        <option value="Beca 18">Beca 18</option>
+                                        <option value="Ninguno">Ninguno</option>
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_idioma_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Castellano">Castellano</option>
+                                        <option value="Quechua">Quechua</option>
+                                        <option value="Aymara">Aymara</option>
+                                        <option value="Ashaninka">Ashaninka</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><input type="text" name="familiar_nombre_1"></td>
+                                <td>
+                                    <select name="familiar_parentesco_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="padre">Jefe de Familia</option>
+                                        <option value="">Esposo(a)</option>
+                                        <option value="">conviviente(a)</option>
+                                        <option value="">Hijo(a) / Hijastro(a)</option>
+                                        <option value="">Nieto (a)</option>
+                                        <option value="">Yerno o nuera</option>
+                                        <option value="">Padre / madre</option>
+                                        <option value="">Suegro(a)</option>
+                                        <option value="">Hermano(a)</option>
+                                        <option value="">Cuñado(a)</option>
+                                        <option value="">Otro Pariente</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_tipodoc_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="dni">DNI</option>
+                                        <option value="ce">Carnet de Extranjería</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" name="familiar_nrodoc_1"></td>
+                                <td>
+                                    <select name="familiar_sexo_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_nacionalidad_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="peruana">Peruana</option>
+                                        <option value="extranjera">Otros</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_estadocivil_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="soltero">Soltero</option>
+                                        <option value="casado">Casado</option>
+                                        <option value="divorciado">Viudo / Divorciado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_ocupacion_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="empleado"> Agricultor(a)</option>
+                                        <option value="desempleado">Ganadero(a)</option>
+                                        <option value="jubilado">Jubilado(a)</option>
+                                        <option value="otro">Otros (Detallar)</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" name="familiar_edad_1"></td>
+                                <td>
+                                    <select name="familiar_condicionocupante_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="propietario">Propietario</option>
+                                        <option value="ocupante">Sociedad conyugal</option>
+                                        <option value="Poseedor">Poseedor</option>
+                                        <option value="alquilino">Inquilino / guardian</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="" id=""></td>
+                                <td>
+                                    <select name="familiar_discapacidad_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="fisica">Física</option>
+                                        <option value="Mental">Mental</option>
+                                        <option value="Ninguno">Ninguno</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_apoyosocial_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Qaliwarma">Qaliwarma</option>
+                                        <option value="Cuna Mas">Cuna Mas</option>
+                                        <option value="Juntos">Juntos</option>
+                                        <option value="Pensión 65">Pensión 65</option>
+                                        <option value="Vaso de Leche">Vaso de Leche</option>
+                                        <option value="Beca 18">Beca 18</option>
+                                        <option value="Ninguno">Ninguno</option>
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_idioma_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Castellano">Castellano</option>
+                                        <option value="Quechua">Quechua</option>
+                                        <option value="Aymara">Aymara</option>
+                                        <option value="Ashaninka">Ashaninka</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><input type="text" name="familiar_nombre_1"></td>
+                                <td>
+                                    <select name="familiar_parentesco_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="padre">Jefe de Familia</option>
+                                        <option value="">Esposo(a)</option>
+                                        <option value="">conviviente(a)</option>
+                                        <option value="">Hijo(a) / Hijastro(a)</option>
+                                        <option value="">Nieto (a)</option>
+                                        <option value="">Yerno o nuera</option>
+                                        <option value="">Padre / madre</option>
+                                        <option value="">Suegro(a)</option>
+                                        <option value="">Hermano(a)</option>
+                                        <option value="">Cuñado(a)</option>
+                                        <option value="">Otro Pariente</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_tipodoc_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="dni">DNI</option>
+                                        <option value="ce">Carnet de Extranjería</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" name="familiar_nrodoc_1"></td>
+                                <td>
+                                    <select name="familiar_sexo_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_nacionalidad_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="peruana">Peruana</option>
+                                        <option value="extranjera">Otros</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_estadocivil_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="soltero">Soltero</option>
+                                        <option value="casado">Casado</option>
+                                        <option value="divorciado">Viudo / Divorciado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_ocupacion_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="empleado"> Agricultor(a)</option>
+                                        <option value="desempleado">Ganadero(a)</option>
+                                        <option value="jubilado">Jubilado(a)</option>
+                                        <option value="otro">Otros (Detallar)</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" name="familiar_edad_1"></td>
+                                <td>
+                                    <select name="familiar_condicionocupante_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="propietario">Propietario</option>
+                                        <option value="ocupante">Sociedad conyugal</option>
+                                        <option value="Poseedor">Poseedor</option>
+                                        <option value="alquilino">Inquilino / guardian</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="" id=""></td>
+                                <td>
+                                    <select name="familiar_discapacidad_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="fisica">Física</option>
+                                        <option value="Mental">Mental</option>
+                                        <option value="Ninguno">Ninguno</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_apoyosocial_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Qaliwarma">Qaliwarma</option>
+                                        <option value="Cuna Mas">Cuna Mas</option>
+                                        <option value="Juntos">Juntos</option>
+                                        <option value="Pensión 65">Pensión 65</option>
+                                        <option value="Vaso de Leche">Vaso de Leche</option>
+                                        <option value="Beca 18">Beca 18</option>
+                                        <option value="Ninguno">Ninguno</option>
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="familiar_idioma_1">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Castellano">Castellano</option>
+                                        <option value="Quechua">Quechua</option>
+                                        <option value="Aymara">Aymara</option>
+                                        <option value="Ashaninka">Ashaninka</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+                <div class="grid-container">
+                    <legend class="grid-col-full">¿QUIEN ES EL DUEÑO DE LA VIVIENDA? (en caso de inquilinos o guardianes u otros)</legend>
+                    <div class="form-group">
+                        <label for="nroPuerta">Apellido paterno</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Apellido materno</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Nombres</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Sexo</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Estado civil</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Nacionalidad</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">Tipo de documentos</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <div class="form-group">
+                        <label for="nroPuerta">N° de documentos</label>
+                        <input type="text" id="nroPuerta" name="nroPuerta">
+                    </div>
+                    <legend class="grid-col-full">EN CASO DE SER PROPIETARIO, SOCIEDAD CONYUGAL O COTITULAR (LLENAR LO SIGUIENTE )</legend>
+                    <div class="form-group grid-col-full">
+                        <label>Condición de ocupante</label>
+                        <div class="choice-group">
+                            <label><input type="radio" name="uso" value="vivienda">Compra/venta</label>
+                            <label><input type="radio" name="uso" value="comercio">Adjudicación</label>
+                            <label><input type="radio" name="uso" value="salud">Donación</label>
+                            <label><input type="radio" name="uso" value="educacion">Herencia</label>
+                            <label><input type="radio" name="uso" value="comunal">Prescripción adquisitiva</label>
+                            <label><input type="radio" name="uso" value="otro"> Otro</label>
+                            <label><input type="text" name="uso"></label>
+                        </div>
+                    </div>
+                    <div class="form-group grid-col-full">
+                        <label>Cuenta con inscripción registral</label>
+                        <div class="choice-group">
+                           <label><input type="radio" name="servicios" value="agua">Si</label>
+                           <label><input type="radio" name="servicios" value="luz">No</label>
+                           <label><input type="radio" name="servicios" value="otro">Número de partida registral</label>
+                           <label><input type="text" name="uso"></label>
+                        </div>
+                    </div>
+                    <div class="form-group grid-col-full">
+                        <label>Documento que acredite a la propiedad</label>
+                        <div class="choice-group">
+                           <label><input type="radio" name="servicios" value="agua">Escritura pública</label>
+                           <label><input type="radio" name="servicios" value="luz">Documento de compra/venta</label>
+                           <label><input type="radio" name="servicios" value="desague">Contrato de adjudicación</label>
+                           <label><input type="radio" name="servicios" value="otro">Título de propiedad</label>
+                           <label><input type="radio" name="servicios" value="otro">Título de COFOPRI</label>
+                           <label><input type="radio" name="servicios" value="otro">Constancia de posesión</label>
+                           <label><input type="radio" name="servicios" value="otro">Otros</label>
+                           <label><input type="text" name="servicios"></label>
+                        </div>
+                    </div>
+                    <div class="form-group grid-col-full">
+                        <label>Tiempo de vivencia</label>
+                        <div class="choice-group">
+                           <label><input type="radio" name="servicios" value="agua">0 - 2 años</label>
+                           <label><input type="radio" name="servicios" value="luz">3 - 5 años</label>
+                           <label><input type="radio" name="servicios" value="desague">6 - 10 años</label>
+                           <label><input type="radio" name="servicios" value="otro">11 - 20 años</label>
+                           <label><input type="radio" name="servicios" value="otro">de 20 años a más</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>IV. Información de la Vivienda</legend>
+                <div class="grid-container">
+                    <div class="form-group grid-col-full">
+                        <label>Uso de la Vivienda</label>
+                        <div class="choice-group">
+                            <label><input type="checkbox" name="uso" value="vivienda"> Vivienda</label>
+                            <label><input type="checkbox" name="uso" value="comercio"> Comercio</label>
+                            <label><input type="checkbox" name="uso" value="salud"> Salud</label>
+                            <label><input type="checkbox" name="uso" value="educacion"> Educación</label>
+                            <label><input type="checkbox" name="uso" value="comunal"> Servicio Comunal</label>
+                            <label><input type="checkbox" name="uso" value="templo"> Templo</label>
+                            <label><input type="checkbox" name="uso" value="otro"> Otro</label>
+                        </div>
+                    </div>
+                    <div class="form-group grid-col-full">
+                        <label>Tipo de vivienda</label>
+                        <div class="choice-group">
+                            <label><input type="radio" name="uso" value="vivienda"> Unifamiliar</label>
+                            <label><input type="radio" name="uso" value="comercio"> Multifamiliar</label>
+                            <label><input type="radio" name="uso" value="salud"> Otro</label>
+                            <label><input type="text" name="uso"></label>
+                        </div>
+                    </div>
+                     <div class="form-group grid-col-full">
+                        <label>Servicios Básicos</label>
+                        <div class="choice-group">
+                           <label><input type="checkbox" name="servicios" value="agua"> Agua</label>
+                           <label><input type="checkbox" name="servicios" value="luz"> Luz</label>
+                           <label><input type="checkbox" name="servicios" value="desague"> Desagüe</label>
+                           <label><input type="checkbox" name="servicios" value="otro"> Otro</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="grid-container">
+                    <legend class="grid-col-full">Características físicas</legend>
+                    <div class="form-group grid-col-full">
+                        <label>Área terreno(m²) aprox</label>
+                        <div class="choice-group">
+                            <label><input type="radio" name="uso" value="vivienda">0 - 40</label>
+                            <label><input type="radio" name="uso" value="comercio">41 - 100</label>
+                            <label><input type="radio" name="uso" value="comercio">101 - 200</label>
+                            <label><input type="radio" name="uso" value="comercio">201 - 500</label>
+                            <label><input type="radio" name="uso" value="salud"> Otro</label>
+                            <label><input type="text" name="uso"></label>
+                        </div>
+                        <label>Nro. de pisos</label>
+                        <div class="choice-group">
+                            <label><input type="radio" name="uso" value="vivienda">1</label>
+                            <label><input type="radio" name="uso" value="vivienda">2</label>
+                            <label><input type="radio" name="uso" value="vivienda">3</label>
+                            <label><input type="radio" name="uso" value="comercio">4</label>
+                            <label><input type="radio" name="uso" value="salud"> Otro</label>
+                            <label><input type="text" name="uso"></label>
+                        </div>
+                        <label>Área construida (m²)</label>
+                        <div class="choice-group">
+                            <label><input type="radio" name="uso" value="vivienda">0 - 40</label>
+                            <label><input type="radio" name="uso" value="comercio">41 - 100</label>
+                            <label><input type="radio" name="uso" value="comercio">101 - 200</label>
+                            <label><input type="radio" name="uso" value="comercio">201 - 500</label>
+                            <label><input type="radio" name="uso" value="salud"> Otro</label>
+                            <label><input type="text" name="uso"></label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <legend>Material Predominante</legend>
+                 <div class="grid-container">
+                    <div class="form-group">
+                        <label>Muros</label>
+                        <select name="muros">
+                            <option value="">Seleccionar...</option>
+                            <option value="concreto">Concreto</option>
+                            <option value="ladrillo">Ladrillo</option>
+                            <option value="adobe">Adobe</option>
+                            <option value="tapial">Tapial</option>
+                            <option value="madera">Madera</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Techo</label>
+                        <select name="techo">
+                            <option value="">Seleccionar...</option>
+                            <option value="concreto_armado">Concreto Armado</option>
+                            <option value="madera">Madera</option>
+                            <option value="calamina">Plancha de Calamina</option>
+                            <option value="estera">Caña o Estera</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <label>Pisos</label>
+                        <select name="pisos">
+                            <option value="">Seleccionar...</option>
+                            <option value="parquet">Parquet o Madera Pulida</option>
+                            <option value="ceramicos">Cerámicos</option>
+                            <option value="concreto">Concreto</option>
+                            <option value="tierra">Tierra</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                 </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>V. Información Complementaria</legend>
+                <div class="form-group">
+                    <label>Actualmente se encuentra alojado en:</label>
+                    <div class="choice-group">
+                        <label><input type="radio" name="alojamiento" value="familiar"> Casa Familiar</label>
+                        <label><input type="radio" name="alojamiento" value="albergue"> Albergue</label>
+                        <label><input type="radio" name="alojamiento" value="refugio"> Refugio</label>
+                        <label><input type="radio" name="alojamiento" value="hospedaje"> Hospedaje</label>
+                        <label><input type="radio" name="alojamiento" value="otro"> Otro</label>
+                        <label><input type="text" name="alojamiento"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Número Telefónico de Contacto</label>
+                    <input type="text" id="telefono" name="telefono">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>VI. Observaciones / Recomendaciones</legend>
+                <div class="form-group">
+                    <textarea id="observaciones" name="observaciones" rows="5" placeholder="Incluir antecedentes que podrían afectar el entorno de la vivienda (Deslizamiento, Huayco, Inundación, etc.)"></textarea>
+                </div>
+            </fieldset>
+            
+             <fieldset>
+                <legend>Datos del Verificador de Campo</legend>
+                <div class="grid-container">
+                    <div class="form-group grid-col-2">
+                        <label for="verificadorNombres">Nombres y Apellidos</label>
+                        <input type="text" id="verificadorNombres" name="verificadorNombres">
+                    </div>
+                    <div class="form-group">
+                        <label for="verificadorDNI">DNI</label>
+                        <input type="text" id="verificadorDNI" name="verificadorDNI" pattern="\d{8}" title="El DNI debe tener 8 dígitos.">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <script src="header.js"></script>
+</body>
+</html>

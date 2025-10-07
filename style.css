@@ -224,6 +224,11 @@ main {
   font-size: 24px;
 }
 
+.filtro .select {
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
 .buscador{
   background-color: white;
   border: 1px solid rgba(185, 185, 185, 1);
@@ -234,6 +239,11 @@ main {
   justify-content: center;
   gap: 12px;
   padding: 0 12px;
+}
+
+input.busqueda {
+  outline: none;
+  border: none;
 }
 
 .container-second{
@@ -329,7 +339,7 @@ main {
   align-items: center;
 }
 
-.part2 div{
+.part2 div:not(#info2) {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -353,6 +363,22 @@ main {
   height: auto;
 }
 
+.part3 div a {
+  text-decoration: none;
+  color: #0303a8;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 4px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.part3 div a:hover {
+  background-color: rgba(245, 245, 245, 1);
+}
+
 #info{
   display: flex;
   flex-direction: column;
@@ -362,18 +388,21 @@ main {
 }
 
 #info2 {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(50px, 1fr));
+  display: flex;
+  flex-direction: row;
   gap: 6px;
   margin-bottom: 12px;
   align-items: start;
   grid-auto-flow: row;
   height: auto;
-  max-width: 100%;  /* Aseguramos que el ancho no se desborde */
-  box-sizing: border-box;  /* Evita desbordes por padding y borders */
+  max-width: 100%;
+  box-sizing: border-box;
+  background-color: transparent;
 }
 
 #info2 div{
+  background-color: transparent !important;
+  font-size: 12px !important;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -813,4 +842,31 @@ main {
     width: 100%;
     max-width: 320px;
   }
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.37);
+  background: rgba(255, 255, 255, .02);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:hover {
+  border-color: rgba(0, 0, 0, 0.767);
+}
+
+.btn:active {
+  transform: translateY(1px)
+}
+
+.btn-secondary {
+  background: transparent
 }
