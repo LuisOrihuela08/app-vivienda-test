@@ -29,12 +29,11 @@
 .logo {
     /* inline-size: clamp(160px, 30vw, 417px); */
     position: absolute;
-    /*top: 40px;
-    left: 40px;*/
-    top: 100px;
-    left: 18%;
+    top: 40px;
+    /*left: 40px;*/
+    left: 15%;
     z-index: 3;
-    height: 140px;
+    height: 80px;
     width: auto;
 }
 .trescolores{
@@ -57,11 +56,14 @@
 .div-title {
     margin: 0 40px;
     display: block;
-    width: 900px;
+    width: 800px;
     min-height: 200px;
     position: relative;
     z-index: 2;
     margin-right: 280px;
+
+    /*agregando left*/
+    left: 5%;
 }
 
 .title,
@@ -73,7 +75,7 @@
 
 .title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 120px;
+    font-size: 70px;
     font-style: italic;
     font-weight: bold;
 }
@@ -81,7 +83,7 @@
 .subtitle {
     font-weight: 600;
     font-style: italic;
-    font-size: 70px;
+    font-size: 40px;
 }
 
 .subtitle2{
@@ -103,8 +105,7 @@
     box-sizing: border-box;
     position: relative;
     z-index: 2;
-    /*right: 50px;*/
-    top: -200px;
+    right: 50px;
     
 }
 
