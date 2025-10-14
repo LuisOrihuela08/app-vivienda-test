@@ -30,8 +30,7 @@
     /* inline-size: clamp(160px, 30vw, 417px); */
     position: absolute;
     top: 40px;
-    /*left: 40px;*/
-    left: 15%;
+    left: 200px;
     z-index: 3;
     height: 80px;
     width: auto;
@@ -57,13 +56,13 @@
     margin: 0 40px;
     display: block;
     width: 800px;
-    min-height: 200px;
+    min-height: 300px;
     position: relative;
     z-index: 2;
     margin-right: 280px;
 
     /*agregando left*/
-    left: 5%;
+    left: 60px;
 }
 
 .title,
@@ -83,7 +82,7 @@
 .subtitle {
     font-weight: 600;
     font-style: italic;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .subtitle2{
