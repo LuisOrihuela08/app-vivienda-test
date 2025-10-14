@@ -28,7 +28,7 @@
 
 .logo {
     /* inline-size: clamp(160px, 30vw, 417px); */
-    position: absolute;
+    position: fixed;
     top: 40px;
     left: 200px;
     z-index: 3;
