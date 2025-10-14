@@ -1,95 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="login.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+    rel="stylesheet">
+  <title>Document</title>
 </head>
+
 <body>
-<div class="body">
-  <img src="img/loginlogo.png" alt="" class="logo">
-  <div class="trescolores">
-    <img src="img/colores.png" alt="" class="img-enfermo">
+  <div class="body">
+    <img src="img/loginlogo.png" alt="" class="logo">
+    <div class="trescolores">
+      <img src="img/colores.png" alt="" class="img-enfermo">
+    </div>
+    <div class="div-title">
+      <p class="title">
+        “BAE <br>
+      </p>
+      <p class="subtitle">
+        Bono de Arrendamiento <br>de Viviendas para <br>Emergencias”
+      </p>
+    </div>
+    <main class="login">
+
+
+      <section class="login__main-content">
+
+        <h1 class="login__title">Bienvenido</h1>
+        <div class="login__separator-line"></div>
+        
+
+        <form class="login__form">
+          <div class="input-group" style="border-radius: 8px 8px 0 0;">
+            <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M3.98096 4.1631C2.98855 5.08461 2.32392 6.57984 2.32392 8.92535V19.142C2.32392 21.4874 2.98855 22.9827 3.98096 23.9042C4.98804 24.8393 6.50538 25.3449 8.52686 25.3449H23.122C25.1434 25.3449 26.6608 24.8393 27.668 23.9042C28.6603 22.9827 29.325 21.4874 29.325 19.142V8.92535C29.325 6.57984 28.6603 5.08461 27.668 4.1631C26.6608 3.22795 25.1434 2.72241 23.122 2.72241H8.52686C6.50538 2.72241 4.98804 3.22795 3.98096 4.1631ZM2.49126 2.5588C4.03834 1.12225 6.16978 0.533142 8.52686 0.533142H23.122C25.4791 0.533142 27.6106 1.12225 29.1575 2.5588C30.7194 4.00901 31.5142 6.16257 31.5142 8.92535V19.142C31.5142 21.9048 30.7194 24.0583 29.1575 25.5085C27.6106 26.9451 25.4791 27.5342 23.122 27.5342H8.52686C6.16978 27.5342 4.03834 26.9451 2.49126 25.5085C0.929525 24.0583 0.134644 21.9048 0.134644 19.142V8.92535C0.134644 6.16257 0.929525 4.00901 2.49126 2.5588Z"
+                fill="#525252" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M26.5713 7.18891C26.941 7.66728 26.8529 8.35474 26.3746 8.72438L18.2785 14.9803C16.833 16.0971 14.8158 16.0971 13.3703 14.9803L5.27427 8.72438C4.79588 8.35474 4.70774 7.66728 5.07739 7.18891C5.44705 6.71053 6.13449 6.62239 6.61288 6.99204L14.7088 13.2479C15.3659 13.7556 16.2829 13.7556 16.9398 13.2479L25.0359 6.99204C25.5143 6.62239 26.2018 6.71053 26.5713 7.18891Z"
+                fill="#525252" />
+            </svg>
+            <input type="text" id="username" class="input-group__field" placeholder="">
+            <label for="username">Usuario</label>
+          </div>
+
+          <div class="input-group" style="border-radius: 0 0 8px 8px ;">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
+              class="icon-input">
+              <path
+                d="M16.3941 28.8431H11.2566C10.3517 28.8431 9.54893 28.8139 8.83377 28.7118C4.99524 28.2885 3.95898 26.4787 3.95898 21.5455V14.248C3.95898 9.31479 4.99524 7.50499 8.83377 7.08174C9.54893 6.97957 10.3517 6.95038 11.2566 6.95038H16.3065"
+                stroke="#FFA549" stroke-width="2.13952" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M22.2322 6.95038H24.3923C25.2972 6.95038 26.0999 6.97957 26.8151 7.08174C30.6536 7.50499 31.6898 9.31479 31.6898 14.248V21.5455C31.6898 26.4787 30.6536 28.2885 26.8151 28.7118C26.0999 28.8139 25.2972 28.8431 24.3923 28.8431H22.2322"
+                stroke="#FFA549" stroke-width="2.13952" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M22.203 3.302V32.4923" stroke="#FFA549" stroke-width="2.13952" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M16.5028 17.8976H16.5164" stroke="#FFA549" stroke-width="2.85269" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M10.6648 17.8976H10.6784" stroke="#FFA549" stroke-width="2.85269" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <input type="password" id="password" class="input-group__field" placeholder="">
+            <label for="password">Contraseña</label>
+          </div>
+          <a href="#" style="align-self: flex-end; text-decoration: none; color: #7B7B7B; margin-top:10px;">¿Olvidaste
+            tu contraseña?</a>
+          <button type="button" class="button button--primary login__submit-button"
+            onclick="window.location.href='decreto-supremo.html'">
+            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M11.9838 12.5454H4.82904M4.62624 13.4833L3.44417 17.0144C2.79676 18.9482 2.47305 19.9152 2.70536 20.5106C2.90709 21.0278 3.34037 21.4198 3.87501 21.5691C4.49067 21.7408 5.42056 21.3224 7.28032 20.4855L19.2031 15.1202C21.0184 14.3033 21.9261 13.895 22.2065 13.3275C22.4503 12.8346 22.4503 12.2561 22.2065 11.7632C21.9261 11.1959 21.0184 10.7874 19.2031 9.97054L7.25976 4.59605C5.40559 3.76168 4.47852 3.34449 3.86347 3.51563C3.32933 3.66426 2.8961 4.05526 2.69366 4.57141C2.46056 5.16575 2.7808 6.13061 3.42131 8.06033L4.62853 11.6975C4.73853 12.029 4.79354 12.1947 4.81525 12.3641C4.83452 12.5146 4.83432 12.6668 4.81467 12.8172C4.79252 12.9866 4.7371 13.1521 4.62624 13.4833Z"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="button__text">Entrar al Sistema</span>
+          </button>
+          <!--
+          <div class="divisor">
+            <img src="img/line-divisor.png" alt="" class="line-divisor"> ó <img src="img/line-divisor.png" alt=""
+              class="line-divisor">
+          </div>
+          <button class="google">
+            <img src="img/google.png" alt="" class="img-google">
+            Continuar con Google
+          </button>
+          -->
+        </form>
+
+      </section>
+    </main>
+
+    <footer class="login__footer">
+      <p>@2025 Ministerio de Vivienda, Construcción y Saneamiento. All rights reserved
+      </p>
+    </footer>
+
   </div>
-  <div class="div-title">
-    <p class="title">
-      “BAE: <br>
-      <!-- <span id="titulo-vivienda" class="items"></span> -->
-      Bono de Arrendamiento de Viviendas para Emergencias”
-    </p>
-</div>
-  <main class="login">
-
-
-    <section class="login__main-content">
-
-      <h1 class="login__title">Bienvenido</h1>
-      <div class="login__separator-line"></div>
-
-      <form class="login__form">
-        <div class="input-group" style="border-radius: 8px 8px 0 0;">
-          <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M3.98096 4.1631C2.98855 5.08461 2.32392 6.57984 2.32392 8.92535V19.142C2.32392 21.4874 2.98855 22.9827 3.98096 23.9042C4.98804 24.8393 6.50538 25.3449 8.52686 25.3449H23.122C25.1434 25.3449 26.6608 24.8393 27.668 23.9042C28.6603 22.9827 29.325 21.4874 29.325 19.142V8.92535C29.325 6.57984 28.6603 5.08461 27.668 4.1631C26.6608 3.22795 25.1434 2.72241 23.122 2.72241H8.52686C6.50538 2.72241 4.98804 3.22795 3.98096 4.1631ZM2.49126 2.5588C4.03834 1.12225 6.16978 0.533142 8.52686 0.533142H23.122C25.4791 0.533142 27.6106 1.12225 29.1575 2.5588C30.7194 4.00901 31.5142 6.16257 31.5142 8.92535V19.142C31.5142 21.9048 30.7194 24.0583 29.1575 25.5085C27.6106 26.9451 25.4791 27.5342 23.122 27.5342H8.52686C6.16978 27.5342 4.03834 26.9451 2.49126 25.5085C0.929525 24.0583 0.134644 21.9048 0.134644 19.142V8.92535C0.134644 6.16257 0.929525 4.00901 2.49126 2.5588Z"
-              fill="#525252" />
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M26.5713 7.18891C26.941 7.66728 26.8529 8.35474 26.3746 8.72438L18.2785 14.9803C16.833 16.0971 14.8158 16.0971 13.3703 14.9803L5.27427 8.72438C4.79588 8.35474 4.70774 7.66728 5.07739 7.18891C5.44705 6.71053 6.13449 6.62239 6.61288 6.99204L14.7088 13.2479C15.3659 13.7556 16.2829 13.7556 16.9398 13.2479L25.0359 6.99204C25.5143 6.62239 26.2018 6.71053 26.5713 7.18891Z"
-              fill="#525252" />
-          </svg>
-          <input type="text" id="username" class="input-group__field" placeholder="">
-          <label for="username">Usuario</label>
-        </div>
-
-        <div class="input-group" style="border-radius: 0 0 8px 8px ;">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-input">
-            <path
-              d="M16.3941 28.8431H11.2566C10.3517 28.8431 9.54893 28.8139 8.83377 28.7118C4.99524 28.2885 3.95898 26.4787 3.95898 21.5455V14.248C3.95898 9.31479 4.99524 7.50499 8.83377 7.08174C9.54893 6.97957 10.3517 6.95038 11.2566 6.95038H16.3065"
-              stroke="#FFA549" stroke-width="2.13952" stroke-linecap="round" stroke-linejoin="round" />
-            <path
-              d="M22.2322 6.95038H24.3923C25.2972 6.95038 26.0999 6.97957 26.8151 7.08174C30.6536 7.50499 31.6898 9.31479 31.6898 14.248V21.5455C31.6898 26.4787 30.6536 28.2885 26.8151 28.7118C26.0999 28.8139 25.2972 28.8431 24.3923 28.8431H22.2322"
-              stroke="#FFA549" stroke-width="2.13952" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M22.203 3.302V32.4923" stroke="#FFA549" stroke-width="2.13952" stroke-linecap="round"
-              stroke-linejoin="round" />
-            <path d="M16.5028 17.8976H16.5164" stroke="#FFA549" stroke-width="2.85269" stroke-linecap="round"
-              stroke-linejoin="round" />
-            <path d="M10.6648 17.8976H10.6784" stroke="#FFA549" stroke-width="2.85269" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-          <input type="password" id="password" class="input-group__field" placeholder="">
-          <label for="password">Contraseña</label>
-        </div>
-        <a href="#" style="align-self: flex-end; text-decoration: none; color: #7B7B7B; margin-top:10px;">¿Olvidaste tu contraseña?</a>
-        <button type="button" class="button button--primary login__submit-button" onclick="window.location.href='decreto-supremo.html'">
-          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M11.9838 12.5454H4.82904M4.62624 13.4833L3.44417 17.0144C2.79676 18.9482 2.47305 19.9152 2.70536 20.5106C2.90709 21.0278 3.34037 21.4198 3.87501 21.5691C4.49067 21.7408 5.42056 21.3224 7.28032 20.4855L19.2031 15.1202C21.0184 14.3033 21.9261 13.895 22.2065 13.3275C22.4503 12.8346 22.4503 12.2561 22.2065 11.7632C21.9261 11.1959 21.0184 10.7874 19.2031 9.97054L7.25976 4.59605C5.40559 3.76168 4.47852 3.34449 3.86347 3.51563C3.32933 3.66426 2.8961 4.05526 2.69366 4.57141C2.46056 5.16575 2.7808 6.13061 3.42131 8.06033L4.62853 11.6975C4.73853 12.029 4.79354 12.1947 4.81525 12.3641C4.83452 12.5146 4.83432 12.6668 4.81467 12.8172C4.79252 12.9866 4.7371 13.1521 4.62624 13.4833Z"
-              stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <span class="button__text">Entrar al Sistema</span>
-        </button>
-        <div class="divisor">
-          <img src="img/line-divisor.png" alt="" class="line-divisor"> ó <img src="img/line-divisor.png"
-            alt="" class="line-divisor">
-        </div>
-        <button class="google">
-          <img src="img/google.png" alt="" class="img-google">
-          Continuar con Google
-        </button>
-      </form>
-
-    </section>
-  </main>
-
-  <footer class="login__footer">
-    <p>@2025 Ministerio de Vivienda, Construcción y Saneamiento. All rights reserved
-</p>
-  </footer>
-
-</div>
   <script src="animation.js"></script>
 </body>
+
 </html>
