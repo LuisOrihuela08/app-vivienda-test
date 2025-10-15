@@ -284,14 +284,14 @@ input.busqueda {
   max-width: var(--max-width-global);
   margin: 0 28px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(auto, 1fr));
+  grid-template-columns: repeat(2, minmax(auto, 1fr));
   grid-auto-flow: row;
   gap: 22px;
 }
 
 .container-cards{
   display: grid;
-  grid-template-columns: auto auto auto 20px ;
+  grid-template-columns: auto auto auto auto auto auto auto;
   width: 100%;
   height: auto;
   padding: 12px;
@@ -361,6 +361,10 @@ input.busqueda {
 }
 .part3{
   height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .part3 div a {
@@ -379,12 +383,33 @@ input.busqueda {
   background-color: rgba(245, 245, 245, 1);
 }
 
+.part3 #info2{
+  margin-top: 46px;
+}
+
 #info{
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-bottom: 12px;
   align-items: start;
+}
+
+.part5, .part6{
+  display: flex;
+  flex-direction: column;
+  /*justify-content: end;*/
+  margin-top: 145px;
+  align-items: center;
+
+}
+
+.part7 div svg{
+  text-decoration: none;
+  fill: none;
+  cursor: pointer;
+  width: 24px;
+  height: 20px;
 }
 
 #info2 {
@@ -398,6 +423,10 @@ input.busqueda {
   max-width: 100%;
   box-sizing: border-box;
   background-color: transparent;
+}
+
+#info2-tiempo-atencion svg{
+  margin-top: 10px;
 }
 
 #info2 div{
