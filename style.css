@@ -395,6 +395,8 @@ input.busqueda {
 
 .part3 #info2{
   /*margin-top: 15px;*/
+  position: relative; /* Establece la posición relativa */
+  /*top: 2px;  */
 }
 
 #info{
