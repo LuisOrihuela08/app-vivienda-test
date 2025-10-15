@@ -58,16 +58,27 @@
     width: 800px;
     min-height: 300px;
     position: relative;
-    z-index: 2;
+   z-index: 2;
     margin-right: 280px;
 
     /*agregando left*/
     left: 60px;
+    text-align: left;
 }
+/* El <p> que recibe la clase .items (lo agrega el JS) debe comportarse como texto normal */
+.div-title .items{
+  display: block;          /* que sea un bloque normal */
+  white-space: pre-line;   /* respeta <br> y \n, y permite salto normal por espacios */
+  line-height: 1.15;
+}
+/* definiendo separación precisa */
+.div-title .title    { margin: 0 0 8px 0; line-height: 1.1; }
+.div-title .subtitle { margin: 0;         line-height: 1.2; }
 
 .title,
 .subtitle {
-    margin: 20px;
+    /*margin: 20px;*/
+    margin: 0;
     color: #ffffff;
     text-shadow: 0 8px 4px rgba(0, 0, 0, 0.1);
 }
@@ -425,7 +436,7 @@
     }
 }
 
-
+/* Lo estoy comentando para las animaciones
 .items {
     display: flex;
     flex-wrap: wrap;
@@ -434,7 +445,7 @@
     --delay-preview: 0ms;
     --count: 1;
 }
-
+*/
 .items .item {
     transition-property: opacity, transform, scale;
     transition-duration: var(--transition-duration);
@@ -447,8 +458,67 @@
     }
 }
 
+/*
 .items .item-infinite {
     opacity: 0;
     transform: translateX(10px) scale(1.5);
     will-change: opacity, transform;
+}
+*/
+/* FIX: parano bloquear el estado final de la animación */
+.items .item-infinite {
+  opacity: unset;      
+  transform: none;     
+}
+
+/*SECCION DE ANIMACIONES*/
+/* ===== Animación por letra (stagger) ===== */
+/*.div-title { line-height: 1.1; font-family: "Nunito Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+.div-title .title{ font-weight: 900; font-size: clamp(32px, 5vw, 56px); margin: 0; }
+.div-title .subtitle{ font-size: clamp(16px, 2.2vw, 24px); margin: .35em 0 0; color: #444; }
+*/
+/* Contenedor que porta variables */
+.items { --stagger: 50ms; --dur: 200ms; }
+
+/* Cada letra */
+.item-infinite{
+  display:inline-block;
+  transform: translateY(0) rotate(0) scale(1);
+  opacity:0;
+  /*animation: popIn var(--dur) ease-out both;*/
+  animation:
+    popIn var(--dur) ease-out both,
+    idle 4s ease-in-out calc(var(--i) * var(--stagger) + var(--dur)) infinite alternate;
+  animation-delay: calc(var(--i) * var(--stagger));
+}
+
+/* Fases (opcional) */
+.phase-reverse .item-infinite{ animation-name: popInReverse; }
+.phase-alternate .item-infinite:nth-child(odd){ animation-name: popIn; }
+.phase-alternate .item-infinite:nth-child(even){ animation-name: popInReverse; }
+
+/* Entrada */
+@keyframes popIn{
+  0%{ transform: translateY(.65em) scale(.9); opacity:0; filter:blur(2px); }
+  60%{ transform: translateY(-.15em) scale(1.02); opacity:1; filter:blur(0); }
+  100%{ transform: translateY(0) scale(1); }
+}
+@keyframes popInReverse{
+  0%{ transform: translateY(-.65em) scale(.9); opacity:0; filter:blur(2px); }
+  60%{ transform: translateY(.15em) scale(1.02); opacity:1; filter:blur(0); }
+  100%{ transform: translateY(0) scale(1); }
+}
+
+/* (Opcional) loop suave.
+.item-infinite{
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-duration: calc(var(--dur) * 8);
+}
+*/
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .item-infinite{ animation:none; opacity:1; transform:none; filter:none; }
 }
