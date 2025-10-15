@@ -297,7 +297,7 @@ input.busqueda {
 
 .container-cards{
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto;
+  grid-template-columns: auto auto 83px auto auto auto auto;
   width: 100%;
   height: auto;
   padding: 10px;
@@ -373,7 +373,7 @@ input.busqueda {
   height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 
@@ -394,7 +394,7 @@ input.busqueda {
 }
 
 .part3 #info2{
-  margin-top: 46px;
+  margin-top: 15px;
 }
 
 #info{
@@ -409,7 +409,7 @@ input.busqueda {
   display: flex;
   flex-direction: column;
   /*justify-content: end;*/
-  margin-top: 145px;
+  margin-top: 120px;
   align-items: center;
 
 }
